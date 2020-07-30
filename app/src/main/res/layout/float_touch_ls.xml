@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/relati_icon"
+        android:layout_width="99dp"
+        android:layout_height="99dp"
+        android:background="@android:color/transparent"
+        android:src="@mipmap/relati"
+        />
+
+    <ImageView
+        android:id="@+id/relati_advert"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/relati_icon"
+        android:src="@mipmap/advert" />
+
+    <ImageView
+        android:id="@+id/relati_product"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/relati_advert"
+        android:src="@mipmap/product" />
+
+    <ImageView
+        android:id="@+id/relati_activity"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/relati_product"
+        android:src="@mipmap/manoeuvre" />
+
+    <ImageView
+        android:id="@+id/relati_customershow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/relati_activity"
+        android:src="@mipmap/customershow" />
+
+    <ImageView
+        android:id="@+id/relati_train"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/relati_customershow"
+        android:src="@mipmap/train" />
+
+</RelativeLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    tools:context=".activity.VideoMenuActivity">
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="50sp"
+        android:paddingBottom="15dp"
+        android:gravity="center"
+        android:text="@string/title"/>
+
+    <LinearLayout
+        android:id="@+id/ll_pro"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <com.anwahh.designitandvideomenu.view.GridViewWithHeaderAndFooter
+            android:id="@+id/mediaGridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:horizontalSpacing="5dp"
+            android:verticalSpacing="10dp"
+            android:background="#EEE"
+            android:numColumns="3"
+            android:padding="5dp"
+            android:scrollbarStyle="outsideOverlay"
+            android:paddingTop="5dp"
+            android:clipToPadding="false"
+            android:scrollbars="none"
+            />
+    </LinearLayout>
+
+
+    <ProgressBar
+        android:id="@+id/mProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="visible"
+        style="?android:attr/progressBarStyleLarge"/>
+
+</LinearLayout>

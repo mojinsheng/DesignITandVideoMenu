@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">热拉提</string>
+<!--    <string name="app_name">雅雅芭莎</string>-->
+
+    <string name="title">媒体列表</string>
+    <string name="ShowOrNot">是否显示默认图标：</string>
+</resources>

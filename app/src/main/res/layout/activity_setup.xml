@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.SetUpActivity">
+
+    <TextView
+        android:id="@+id/tv_setup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="设置页面"
+        android:textSize="80px"
+        />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50px"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/ShowOrNot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ShowOrNot"
+                    android:textSize="60px"
+                    />
+
+                <CheckBox
+                    android:id="@+id/advert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/ShowOrNot"
+                    android:text="形象"
+                    android:tag="1"
+                    android:checked="true"
+                    android:textSize="54px"/>
+
+                <CheckBox
+                    android:id="@+id/product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/ShowOrNot"
+                    android:layout_below="@id/advert"
+                    android:text="产品"
+                    android:tag="2"
+                    android:checked="true"
+                    android:textSize="54px"/>
+
+                <CheckBox
+                    android:id="@+id/manoeuvre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/ShowOrNot"
+                    android:layout_below="@id/product"
+                    android:text="活动"
+                    android:tag="3"
+                    android:checked="true"
+                    android:textSize="54px"/>
+
+                <CheckBox
+                    android:id="@+id/live"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/ShowOrNot"
+                    android:layout_below="@id/manoeuvre"
+                    android:text="直播"
+                    android:tag="4"
+                    android:checked="true"
+                    android:textSize="54px"/>
+
+                <CheckBox
+                    android:id="@+id/train"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/ShowOrNot"
+                    android:layout_below="@id/live"
+                    android:text="培训"
+                    android:tag="5"
+                    android:checked="true"
+                    android:textSize="54px"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120px"
+                android:layout_margin="50px"
+                android:layout_marginLeft="50px"
+                android:layout_marginTop="50px"
+                android:layout_marginRight="50px"
+                android:background="@color/white"
+                android:layoutDirection="inherit"
+                android:layoutMode="clipBounds"
+                android:orientation="horizontal"
+                android:padding="5px"
+                android:paddingStart="10px"
+                android:paddingLeft="50px"
+                android:paddingTop="5px"
+                android:paddingEnd="5px"
+                android:paddingRight="50px"
+                android:paddingBottom="5px">
+
+                <Button
+                    android:id="@+id/back_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:text="返回"
+                    android:textColor="@color/white"
+                    android:textSize="56px"
+                    tools:text="返回"></Button>
+
+                <Button
+                    android:id="@+id/finish_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:text="完成"
+                    android:textColor="@color/white"
+                    android:textSize="56px"></Button>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.example.bottombar.BottomBar
+        android:background="#FFFFFF"
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_gravity="bottom" />
+
+</LinearLayout>
