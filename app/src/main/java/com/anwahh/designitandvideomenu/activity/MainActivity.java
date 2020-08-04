@@ -33,6 +33,7 @@ import com.anwahh.designitandvideomenu.commonUtils.ActivityUtils;
 import com.anwahh.designitandvideomenu.commonUtils.FileUtils;
 import com.anwahh.designitandvideomenu.commonUtils.ShowToastUtils;
 import com.anwahh.designitandvideomenu.service.MainService;
+import com.anwahh.designitandvideomenu.utils.PermissionUtil;
 import com.anwahh.designitandvideomenu.viewModel.CustomerVideoView;
 
 import org.apache.http.HttpEntity;
@@ -122,14 +123,18 @@ public class MainActivity extends BaseActivity{
         screenWidth = displayMetrics.widthPixels;
         screenHieght = displayMetrics.heightPixels;
 
+        initView();
+
+
+        if(!PermissionUtil.requestPermissions_STORAGE(this,1000)){
+            return;
+        }
         dirList = getFileFromJson(dirList, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/DataSource.json");
 
 
-
         //检查权限
-        getPermissionThenDo();
+        //getPermissionThenDo();
         // 初始化View
-        initView();
         //初始化数据
         initData();
     }
@@ -178,20 +183,15 @@ public class MainActivity extends BaseActivity{
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == REQUEST_PERMISSION_CODE) {
-            for(int i = 0; i < permissions.length; i++) {
-                if(grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-            }
-            FileUtils.creatFolder(FileUtils.DirPathForMainVideo());
-            FileUtils.creatFolder(FileUtils.DirPathForThumb());
-            FileUtils.creatFolder(FileUtils.DirPathForLongPhoto());
-            FileUtils.creatFolder(FileUtils.DirPathForManoeuvre());
-            FileUtils.creatFolder(FileUtils.DirPathForCustomerShow());
-            FileUtils.creatFolder(FileUtils.DirPathForTrain());
-            FileUtils.createFolderAutoForPhoto(dirList.size());
-            FileUtils.createFolderAutoForVideo(dirList.size());
+        if(requestCode == 1000) {
+            dirList = getFileFromJson(dirList, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/DataSource.json");
+
+
+            //检查权限
+            //getPermissionThenDo();
+            // 初始化View
+            //初始化数据
+            initData();
         }
     }
 
@@ -422,7 +422,7 @@ public class MainActivity extends BaseActivity{
                 if (!Settings.canDrawOverlays(this)) {
                     ShowToastUtils.ShowToast(this, "授权成功！", Toast.LENGTH_SHORT );
                 } else {
-                    ShowToastUtils.ShowToast(this, "授权失败！", Toast.LENGTH_SHORT);
+                    //ShowToastUtils.ShowToast(this, "授权失败！", Toast.LENGTH_SHORT);
                     startService(intent);
                 }
             }
