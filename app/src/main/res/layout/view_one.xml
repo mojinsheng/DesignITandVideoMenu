@@ -3,25 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/mSwipeRefreshLayout"
+    <com.anwahh.designitandvideomenu.viewModel.CustomerVideoView
+        android:layout_below="@id/mainVideoView"
+        android:id="@+id/mainVideoView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        />
 
-        <com.anwahh.designitandvideomenu.viewModel.CustomerVideoView
-            android:layout_below="@id/mainVideoView"
-            android:id="@+id/mainVideoView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/mainViewPagerone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </RelativeLayout>
 

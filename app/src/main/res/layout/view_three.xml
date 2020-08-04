@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_green_light">
 
-    <com.anwahh.designitandvideomenu.view.ChildViewPager
-        android:id="@+id/threeviewPager"
+    <TextView
+        android:text="这是第三个"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

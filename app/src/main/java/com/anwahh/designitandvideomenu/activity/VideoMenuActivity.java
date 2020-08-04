@@ -168,6 +168,7 @@ public class VideoMenuActivity extends BaseActivity {
         public void handleMessage(@NonNull Message msg) {
             if (msg.what == 0x101) {
                 mTitle.setText("产品介绍");
+                mTitle.setVisibility(View.GONE);
                 // 列表控件可见
                 mGridView.setVisibility(View.VISIBLE);
                 ll_pro.setVisibility(View.VISIBLE);

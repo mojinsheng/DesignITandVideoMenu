@@ -5,8 +5,8 @@
     android:background="@android:color/holo_red_light">
 
 
-    <com.anwahh.designitandvideomenu.view.ChildViewPager
-        android:id="@+id/fourviewPager"
+    <TextView
+        android:text="这是第四个"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

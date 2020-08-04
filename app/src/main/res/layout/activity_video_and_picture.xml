@@ -8,13 +8,62 @@
     tools:context=".activity.VideoAndPictureActivity">
 
 
-
-    <com.anwahh.designitandvideomenu.view.MyViewPager
-        android:id="@+id/viewPager"
-        android:background="#FF4081"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </com.anwahh.designitandvideomenu.view.MyViewPager>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/mSwipeRefreshLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.anwahh.designitandvideomenu.viewModel.CustomerVideoView
+                    android:layout_below="@id/mainVideoView"
+                    android:id="@+id/mainVideoView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    />
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/mainViewPagerone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--<ImageView
+                  android:id="@+id/viewPager"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/imageView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="fill_parent"-->
+<!--                />-->
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
 
 
 

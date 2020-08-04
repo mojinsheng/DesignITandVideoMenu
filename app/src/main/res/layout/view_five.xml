@@ -5,10 +5,11 @@
     android:background="@android:color/holo_red_light">
 
 
-    <com.anwahh.designitandvideomenu.view.ChildViewPager
-        android:id="@+id/fiveviewPager"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <TextView
+        android:text="这是第五个"
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 
 </RelativeLayout>

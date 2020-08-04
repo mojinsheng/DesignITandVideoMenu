@@ -5,16 +5,89 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.VideoAndPictureActivity">
+    tools:context=".activity.ProVideoAndPictureActivity">
 
 
-
-    <com.anwahh.designitandvideomenu.view.MyViewPager
-        android:id="@+id/myViewPager"
-        android:background="#FF4081"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </com.anwahh.designitandvideomenu.view.MyViewPager>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_pro"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+                <com.anwahh.designitandvideomenu.viewModel.CustomerVideoView
+                    android:layout_below="@id/mainVideoView"
+                    android:id="@+id/mainVideoView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    />
+
+        </LinearLayout>
+            <com.youth.banner.Banner
+                android:id="@+id/viewPager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <com.youth.banner.Banner
+                android:id="@+id/viewPager1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+
+                />
+            <com.youth.banner.Banner
+                android:id="@+id/viewPager2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <com.youth.banner.Banner
+                android:id="@+id/viewPager3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

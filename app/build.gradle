@@ -5,11 +5,10 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.anwahh.designitandvideomenu"
-        minSdkVersion 23
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 210
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionName "3.0"
     }
     signingConfigs {
         /**
@@ -62,4 +61,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'
     implementation files('libs/mysql-connector-java-5.1.30-bin.jar')
+    implementation 'com.youth.banner:banner:1.4.9'  //最新版本
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation "com.github.bumptech.glide:glide:4.6.1"
 }
