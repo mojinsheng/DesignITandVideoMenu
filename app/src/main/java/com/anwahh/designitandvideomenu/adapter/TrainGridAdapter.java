@@ -1,6 +1,7 @@
 package com.anwahh.designitandvideomenu.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 
 import com.anwahh.designitandvideomenu.R;
 import com.anwahh.designitandvideomenu.bean.MediaBean;
+import com.anwahh.designitandvideomenu.commonUtils.BitmapUtils;
 import com.anwahh.designitandvideomenu.viewHolder.ViewHolder;
 
 import java.util.List;
@@ -91,12 +93,23 @@ public class TrainGridAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View view, ViewGroup parent) {
-        view  = LayoutInflater.from(mContext).inflate(R.layout.thumb_item_list, null);
+    public View getView(final int position, View convertView, ViewGroup parent) {
+
+        View view;
+        if (convertView == null)
+        {
+            view  = LayoutInflater.from(mContext).inflate(R.layout.thumb_item_list, null);
+        } else
+        {
+            view = convertView;
+        }
+
+        Bitmap bitmap = BitmapUtils.getSmallBitmap(getItem(position).getTrainId(),
+                mContext.getResources().getDisplayMetrics().heightPixels,
+                mContext.getResources().getDisplayMetrics().widthPixels);
         ImageView img = ViewHolder.get(view, R.id.iv_icon);
-       /* TextView tv = ViewHolder.get(view,R.id.tv_icon);*/
-        img.setImageDrawable(Drawable.createFromPath(getItem(position).getTrainId()));
-      /*  tv.setText(getItem(position).getName());*/
+        /* TextView tv = ViewHolder.get(view,R.id.tv_icon);*/
+        img.setImageBitmap(bitmap);
         return view;
     }
 }
