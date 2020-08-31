@@ -2,7 +2,6 @@ package com.anwahh.designitandvideomenu.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.anwahh.designitandvideomenu.R;
-import com.anwahh.designitandvideomenu.bean.MediaBean;
 import com.anwahh.designitandvideomenu.commonUtils.BitmapUtils;
 import com.anwahh.designitandvideomenu.viewHolder.ViewHolder;
 
-import java.util.List;
+import java.io.File;
 
 /**
  * @describe 媒体文件适配器类
@@ -23,7 +21,6 @@ import java.util.List;
  */
 public class TrainGridAdapter extends BaseAdapter {
 
-
     /**
      * 上下文
      */
@@ -31,43 +28,12 @@ public class TrainGridAdapter extends BaseAdapter {
     /**
      * 数据集合
      */
-    private List<MediaBean> mChildList;
+    private File[] mChildList;
 
-    public TrainGridAdapter(Context mContext, List<MediaBean> mChildList) {
+    public TrainGridAdapter(Context mContext, File[] mChildList) {
         super();
         this.mContext = mContext;
         this.mChildList = mChildList;
-
-
-        MediaBean m8=new MediaBean();
-        m8.setTrainId("/storage/emulated/0/Pictures/Training/img8.jpg");
-        m8.setTone("/storage/emulated/0/Pictures/trainVideo/pro8/P1");
-        this.mChildList.add(m8);
-
-
-        MediaBean m9=new MediaBean();
-        m9.setTrainId("/storage/emulated/0/Pictures/Training/img9.jpg");
-        m9.setTone("/storage/emulated/0/Pictures/trainVideo/pro9/P1");
-        this.mChildList.add(m9);
-
-
-        MediaBean m10=new MediaBean();
-        m10.setTrainId("/storage/emulated/0/Pictures/Training/img10.jpg");
-        m10.setTone("/storage/emulated/0/Pictures/trainVideo/pro10/P1");
-        this.mChildList.add(m10);
-
-
-        MediaBean m11=new MediaBean();
-        m11.setTrainId("/storage/emulated/0/Pictures/Training/img11.jpg");
-        m11.setTone("/storage/emulated/0/Pictures/trainVideo/pro11/P1");
-        this.mChildList.add(m11);
-
-        MediaBean m12=new MediaBean();
-        m12.setTrainId("/storage/emulated/0/Pictures/Training/img12.jpg");
-        m12.setTone("/storage/emulated/0/Pictures/trainVideo/pro12/P1");
-        this.mChildList.add(m12);
-
-
 
 
 
@@ -77,13 +43,13 @@ public class TrainGridAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return mChildList.size();
+        return mChildList.length;
     }
 
     @Override
-    public MediaBean getItem(int position) {
+    public String getItem(int position) {
         // TODO Auto-generated method stub
-        return mChildList.get(position);
+        return mChildList[position].getPath();
     }
 
     @Override
@@ -94,8 +60,8 @@ public class TrainGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+        View view=null;
 
-        View view;
         if (convertView == null)
         {
             view  = LayoutInflater.from(mContext).inflate(R.layout.thumb_item_list, null);
@@ -104,12 +70,13 @@ public class TrainGridAdapter extends BaseAdapter {
             view = convertView;
         }
 
-        Bitmap bitmap = BitmapUtils.getSmallBitmap(getItem(position).getTrainId(),
+        Bitmap bitmap = BitmapUtils.getSmallBitmap(getItem(position),
                 mContext.getResources().getDisplayMetrics().heightPixels,
                 mContext.getResources().getDisplayMetrics().widthPixels);
         ImageView img = ViewHolder.get(view, R.id.iv_icon);
         /* TextView tv = ViewHolder.get(view,R.id.tv_icon);*/
         img.setImageBitmap(bitmap);
+
         return view;
     }
 }

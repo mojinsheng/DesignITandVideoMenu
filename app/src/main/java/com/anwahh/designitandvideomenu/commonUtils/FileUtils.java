@@ -12,6 +12,7 @@ import android.util.Log;
 import java.io.File;
 
 public class FileUtils {
+    private static String pictrue1=Environment.DIRECTORY_PICTURES;
 
     /**
      * 检查SDCard存在并且可以读写
@@ -27,11 +28,52 @@ public class FileUtils {
      */
     public static String DirPathForMainVideo() {
         if (isSDCardState()) {
-            return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/mainVideo";
+            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/mainVideo";
         } else {
             return Environment.getExternalStorageDirectory().getAbsolutePath() + "/mainVideo";
         }
     }
+
+
+    /**
+     * 指定产品图片存放路径
+     * @return
+     */
+    public static String DirPathForProjectPic() {
+        if (isSDCardState()) {
+            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/Thumb";
+        } else {
+            return Environment.getExternalStorageDirectory().getAbsolutePath() + "/Thumb";
+        }
+    }
+
+    /**
+     * 指定培训图片存放路径
+     * @return
+     */
+    public static String DirPathForTrainPic() {
+        if (isSDCardState()) {
+            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/Training";
+        } else {
+            return Environment.getExternalStorageDirectory().getAbsolutePath() + "/Training";
+        }
+    }
+
+
+
+
+    /**
+     * 指定产品详情图片、视频存放路径
+     * @return
+     */
+    public static String DirPathForProjectPicVideo() {
+        if (isSDCardState()) {
+            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/projectVideo";
+        } else {
+            return Environment.getExternalStorageDirectory().getAbsolutePath() + "/projectVideo";
+        }
+    }
+
 
     /**
      * 指定封面图片存放路径
@@ -39,7 +81,7 @@ public class FileUtils {
      */
     public static String DirPathForThumb() {
         if (isSDCardState()) {
-            return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/Thumb";
+            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/Thumb";
         } else {
             return Environment.getExternalStorageDirectory().getAbsolutePath() + "/Thumb";
         }
@@ -51,7 +93,7 @@ public class FileUtils {
      */
     public static String DirPathForPhoto() {
         if (isSDCardState()) {
-            return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/Photo";
+            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/Photo";
         } else {
             return Environment.getExternalStorageDirectory().getAbsolutePath() + "/Photo";
         }
@@ -63,7 +105,7 @@ public class FileUtils {
      */
     public static String DirPathForVideo() {
         if (isSDCardState()) {
-            return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/Video";
+            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/Video";
         } else {
             return Environment.getExternalStorageDirectory().getAbsolutePath() + "/Video";
         }
@@ -75,7 +117,7 @@ public class FileUtils {
      */
     public static String DirPathForLongPhoto() {
         if (isSDCardState()) {
-            return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/LongPhoto";
+            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/LongPhoto";
         } else {
             return Environment.getExternalStorageDirectory().getAbsolutePath() + "/LongPhoto";
         }
@@ -87,7 +129,7 @@ public class FileUtils {
      */
     public static String DirPathForManoeuvre() {
         if (isSDCardState()) {
-            return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/Manoeuvre";
+            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/Manoeuvre";
         } else {
             return Environment.getExternalStorageDirectory().getAbsolutePath() + "/Manoeuvre";
         }
@@ -99,7 +141,7 @@ public class FileUtils {
      */
     public static String DirPathForCustomerShow() {
         if (isSDCardState()) {
-            return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/CustomerShow";
+            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/CustomerShow";
         } else {
             return Environment.getExternalStorageDirectory().getAbsolutePath() + "/CustomerShow";
         }
@@ -111,12 +153,22 @@ public class FileUtils {
      */
     public static String DirPathForTrain() {
         if (isSDCardState()) {
-            return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/Train";
+            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/Train";
         } else {
             return Environment.getExternalStorageDirectory().getAbsolutePath() + "/Train";
         }
     }
-
+    /**
+     * 指定培训详情的视频存放路径
+     * @return
+     */
+    public static String DirPathForTrainVideo() {
+        if (isSDCardState()) {
+            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/trainVideo";
+        } else {
+            return Environment.getExternalStorageDirectory().getAbsolutePath() + "/trainVideo";
+        }
+    }
     /**
      *  新建目录
      * @param path  目录的绝对路径
@@ -167,7 +219,7 @@ public class FileUtils {
      */
     public static boolean createFolderAutoForPhoto(int num) {
         FileUtils.creatFolder(FileUtils.DirPathForPhoto());
-        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + File.separator + "Photo" + File.separator;
+        String path = Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + File.separator + "Photo" + File.separator;
         for (int i = 0; i < num; i++) {
             String string = "photo" + i + "/";
             path += string;
@@ -180,7 +232,7 @@ public class FileUtils {
                 e.printStackTrace();
             }
 
-            path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + File.separator + "Photo" + File.separator;
+            path = Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + File.separator + "Photo" + File.separator;
         }
         return true;
     }
@@ -192,7 +244,7 @@ public class FileUtils {
      */
     public static boolean createFolderAutoForVideo(int num) {
         FileUtils.creatFolder(FileUtils.DirPathForVideo());
-        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + File.separator + "Video" + File.separator;
+        String path = Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + File.separator + "Video" + File.separator;
         for (int i = 0; i < num; i++) {
             String string = "video" + i + "/";
             path += string;
@@ -205,8 +257,76 @@ public class FileUtils {
                 e.printStackTrace();
             }
 
-            path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + File.separator + "Video" + File.separator;
+            path = Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + File.separator + "Video" + File.separator;
         }
         return true;
     }
+
+    /**
+     * 删除单个文件
+     * @param   filePath    被删除文件的文件名
+     * @return 文件删除成功返回true，否则返回false
+     */
+    public static boolean deleteFile(String filePath) {
+        File file = new File(filePath);
+        if (file.isFile() && file.exists()) {
+            return file.delete();
+        }
+        return false;
+    }
+
+    /**
+     * 删除文件夹以及目录下的文件
+     * @param   filePath 被删除目录的文件路径
+     * @return  目录删除成功返回true，否则返回false
+     */
+    public static boolean deleteDirectory(String filePath) {
+        boolean flag = false;
+        //如果filePath不以文件分隔符结尾，自动添加文件分隔符
+        if (!filePath.endsWith(File.separator)) {
+            filePath = filePath + File.separator;
+        }
+        File dirFile = new File(filePath);
+        if (!dirFile.exists() || !dirFile.isDirectory()) {
+            return false;
+        }
+        flag = true;
+        File[] files = dirFile.listFiles();
+        //遍历删除文件夹下的所有文件(包括子目录)
+        for (int i = 0; i < files.length; i++) {
+            if (files[i].isFile()) {
+                //删除子文件
+                flag = deleteFile(files[i].getAbsolutePath());
+                if (!flag) break;
+            } else {
+                //删除子目录
+                flag = deleteDirectory(files[i].getAbsolutePath());
+                if (!flag) break;
+            }
+        }
+        if (!flag) return false;
+        //删除当前空目录
+        return dirFile.delete();
+    }
+
+    /**
+     *  根据路径删除指定的目录或文件，无论存在与否
+     *@param filePath  要删除的目录或文件
+     *@return 删除成功返回 true，否则返回 false。
+     */
+    public static boolean DeleteFolder(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            return false;
+        } else {
+            if (file.isFile()) {
+                // 为文件时调用删除文件方法
+                return deleteFile(filePath);
+            } else {
+                // 为目录时调用删除目录方法
+                return deleteDirectory(filePath);
+            }
+        }
+    }
+
 }

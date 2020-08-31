@@ -29,9 +29,8 @@
                 <com.anwahh.designitandvideomenu.viewModel.CustomerVideoView
                     android:layout_below="@id/mainVideoView"
                     android:id="@+id/mainVideoView"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     />
 
         </LinearLayout>

@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:src="@mipmap/pro_top"
+        android:src="@mipmap/top"
         android:scaleType="fitXY"
         android:layout_weight="2.5">
     </ImageView>

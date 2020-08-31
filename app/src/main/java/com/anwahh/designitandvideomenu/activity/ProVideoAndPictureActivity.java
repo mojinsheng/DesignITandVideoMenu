@@ -2,10 +2,8 @@ package com.anwahh.designitandvideomenu.activity;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
-import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -21,26 +19,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.viewpager.widget.ViewPager;
-
 import com.anwahh.designitandvideomenu.R;
-import com.anwahh.designitandvideomenu.adapter.MyAdapter;
-import com.anwahh.designitandvideomenu.adapter.MyConAdapter;
-import com.anwahh.designitandvideomenu.adapter.MyProjectAdapter;
 import com.anwahh.designitandvideomenu.commonUtils.FileUtils;
 import com.anwahh.designitandvideomenu.commonUtils.ShowToastUtils;
 import com.anwahh.designitandvideomenu.view.ChildViewPager;
-import com.anwahh.designitandvideomenu.view.MyViewPager;
 import com.anwahh.designitandvideomenu.viewModel.CustomerVideoView;
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -96,9 +87,7 @@ public class ProVideoAndPictureActivity extends BaseActivity {
      * 默认：false
      */
     boolean isRunning= false;
-    boolean isthreeRunning= false;
-    boolean isfourRunning= false;
-    boolean isfiveRunning= false;
+    private List<String> list;
 
     /**
      * 长图展示区域
@@ -116,17 +105,13 @@ public class ProVideoAndPictureActivity extends BaseActivity {
      * 计时轮播
      */
     /*CountDownTimer timer;*/
-    private String pone,ptwo,pthree,pfour,pfive;
+    private String position,proStr;
 
     /**
      * 手势识别器
      */
     private GestureDetector mGestureDetector;
 
-//    /**
-//     * 下拉刷新界面
-//     */
-//    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     /**
      * 图片分页
@@ -146,6 +131,7 @@ public class ProVideoAndPictureActivity extends BaseActivity {
     ArrayList<String> title,twotitle,threetitle,fourtitle;
 
     private LinearLayout ll_pro;
+    private String projectPath,P1,P2,P3,P4,P5;
 
     /**
      * 视频播放器
@@ -165,6 +151,17 @@ public class ProVideoAndPictureActivity extends BaseActivity {
 
         ((ActivityManager)getSystemService(Context.ACTIVITY_SERVICE)).getLargeMemoryClass();
         ll_pro=findViewById(R.id.ll_pro);
+        Intent intent = getIntent();
+        position=(Integer.parseInt(intent.getStringExtra("position"))+1)+"";
+        proStr="/pro"+position;
+
+        projectPath = FileUtils.DirPathForProjectPicVideo();
+        P1= projectPath+proStr+"/P1";
+        P2= projectPath+proStr+"/P2";
+        P3= projectPath+proStr+"/P3";
+        P4= projectPath+proStr+"/P4";
+        P5= projectPath+proStr+"/P5";
+
 
         // 初始化View
         initView();
@@ -176,43 +173,20 @@ public class ProVideoAndPictureActivity extends BaseActivity {
      * 初始化View控件
      */
     private void initView() {
-        Intent intent = getIntent();
-         pone = intent.getStringExtra("pone");
-         ptwo = intent.getStringExtra("ptwo");
-         pthree = intent.getStringExtra("pthree");
-         pfour= intent.getStringExtra("pfour");
-         pfive = intent.getStringExtra("pfive");
-
         mViewPager = findViewById(R.id.viewPager);
         mViewPager1= findViewById(R.id.viewPager1);
         mViewPager2= findViewById(R.id.viewPager2);
         mViewPager3= findViewById(R.id.viewPager3);
 
-
-
-
-
-        // 初始化自定义视频控件
         customerVideoView = findViewById(R.id.mainVideoView);
-//        // 初始化下拉刷新控件
-//        ll_pro.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                mGestureDetector.onTouchEvent(motionEvent);
-//                return true;
-//            }
-//        });
-//       // dispatchTouchEvent
-//        ll_pro
+        PlayVideo(P1);
 
 
-        //beginRecycle(mViewPager);
-        //第一个view Banner
         resetViewPager(mViewPager);
 
         photos = new ArrayList<String>();
         title=new ArrayList<String>();
-        selectPicture(ptwo,1);
+        selectPicture(P2,1);
         mViewPager.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
         mViewPager.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位置
         mViewPager.setImageLoader(new MyImageLoader());
@@ -228,7 +202,7 @@ public class ProVideoAndPictureActivity extends BaseActivity {
 
         twophotos = new ArrayList<String>();
         twotitle=new ArrayList<String>();
-        selectPicture(pthree,2);
+        selectPicture(P3,2);
         mViewPager1.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
         mViewPager1.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位
         mViewPager1.setImageLoader(new MyImageLoader());
@@ -244,7 +218,7 @@ public class ProVideoAndPictureActivity extends BaseActivity {
 
         threephotos = new ArrayList<String>();
         threetitle=new ArrayList<String>();
-        selectPicture(pfour,3);
+        selectPicture(P4,3);
         mViewPager2.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
         mViewPager2.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位
         mViewPager2.setImageLoader(new MyImageLoader());
@@ -259,7 +233,7 @@ public class ProVideoAndPictureActivity extends BaseActivity {
 
         fourphotos = new ArrayList<String>();
         fourtitle=new ArrayList<String>();
-        selectPicture(pfive,4);
+        selectPicture(P5,4);
         mViewPager3.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
         mViewPager3.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位
         mViewPager3.setImageLoader(new MyImageLoader());
@@ -304,7 +278,20 @@ public class ProVideoAndPictureActivity extends BaseActivity {
         /////////////////////////////////////////////////////////////////////////////////
 
         // 滑动切换视频
-        final File[] videoFiles = FileUtils.getFileList(pone);
+        final File[] videoFiles = FileUtils.getFileList(P1);
+
+//        list=new ArrayList<>();
+//
+//
+//        for(int i=0;i<videoFiles.length;i++){
+//            list.add(videoFiles[i].getPath());
+//        }
+//        banner.setDataList(list);
+//        banner.setImgDelyed(5000);
+//        banner.startBanner();
+//        banner.startAutoPlay();
+//        resetViewPager(banner);
+
         mGestureDetector = new GestureDetector(this, new GestureDetector.OnGestureListener() {
             @Override
             public boolean onDown(MotionEvent e) {
@@ -426,7 +413,7 @@ public class ProVideoAndPictureActivity extends BaseActivity {
         });
 
         // 播放视频
-        PlayVideo(pone);
+
 
     }
 
@@ -577,8 +564,8 @@ public class ProVideoAndPictureActivity extends BaseActivity {
             public boolean onPreDraw() {
                 customerVideoView.getViewTreeObserver().removeOnPreDrawListener(this);
                 ViewGroup.LayoutParams videoLayoutParams = customerVideoView.getLayoutParams();
-                videoLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                videoLayoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                videoLayoutParams.width = screenWidth;
+                videoLayoutParams.height = screenHieght;
                 customerVideoView.setLayoutParams(videoLayoutParams);
                 return true;
             }
@@ -593,8 +580,7 @@ public class ProVideoAndPictureActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        isRecycling = false;
-        isRunning = false;
+     //   banner.destroy();
 
     }
 

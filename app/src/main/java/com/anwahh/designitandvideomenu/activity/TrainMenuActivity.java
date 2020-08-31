@@ -2,26 +2,21 @@ package com.anwahh.designitandvideomenu.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
 import com.anwahh.designitandvideomenu.R;
 import com.anwahh.designitandvideomenu.ScannerAnsyTask;
-import com.anwahh.designitandvideomenu.adapter.GridAdapter;
 import com.anwahh.designitandvideomenu.adapter.TrainGridAdapter;
 import com.anwahh.designitandvideomenu.bean.MediaBean;
+import com.anwahh.designitandvideomenu.commonUtils.FileUtils;
 import com.anwahh.designitandvideomenu.view.GridViewWithHeaderAndFooter;
 
+import java.io.File;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * @describe 视频缩略图类
@@ -103,25 +98,11 @@ public class TrainMenuActivity extends BaseActivity {
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mGridAdapter.getItem(position).getPath();
-                mGridAdapter.getItem(position).getPhoto();
-                mGridAdapter.getItem(position).getLongphoto();
-                Log.d(TAG, "path: " + mGridAdapter.getItem(position).getPath());
-                Log.d(TAG, "photo: " + mGridAdapter.getItem(position).getPhoto());
-                Log.d(TAG, "longphoto: " + mGridAdapter.getItem(position).getLongphoto());
+
 
                 Intent intent = new Intent(TrainMenuActivity.this, TrainVideoAndPictureActivity.class);
-                intent.putExtra("video", mGridAdapter.getItem(position).getPath());
-                intent.putExtra("photo", mGridAdapter.getItem(position).getPhoto());
-                intent.putExtra("longphoto", mGridAdapter.getItem(position).getLongphoto());
-                intent.putExtra("pone", mGridAdapter.getItem(position).getPone());
-                intent.putExtra("ptwo", mGridAdapter.getItem(position).getPtwo());
-                intent.putExtra("pthree", mGridAdapter.getItem(position).getPthree());
-                intent.putExtra("pfour", mGridAdapter.getItem(position).getPfour());
-                intent.putExtra("pfive", mGridAdapter.getItem(position).getPfive());
-                intent.putExtra("tone", mGridAdapter.getItem(position).getTone());
 
-                //intent.putExtra("picture", mGridAdapter.getItem(position).)
+                intent.putExtra("position", position+"");
                 startActivity(intent);
             }
         });
@@ -132,40 +113,46 @@ public class TrainMenuActivity extends BaseActivity {
      */
     private void startScanTack() {
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    mAnsyTask = new ScannerAnsyTask(getParent(),mProgressBar);
-                    mAnsyTask.execute();
-                    mChildList = mAnsyTask.get();
-                    Log.d(TAG, "---mAnsyTask.getStatue()---" + mAnsyTask.getStatus());
-                    if(mChildList != null && mChildList.size() > 0) {
-                        mHandler.sendEmptyMessage(0x101);
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        final File[] projectPicFiles = getFileList(FileUtils.DirPathForTrainPic());
+
+
+        mTitle.setText("产品介绍");
+        mTitle.setVisibility(View.GONE);
+        // 列表控件可见
+        mGridView.setVisibility(View.VISIBLE);
+        ll_pro.setVisibility(View.VISIBLE);
+        // 填充适配器
+        mGridAdapter = new TrainGridAdapter(getBaseContext(), projectPicFiles);
+        // 设置适配器
+        mGridView.setAdapter(mGridAdapter);
+
     }
 
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            if (msg.what == 0x101) {
-                mTitle.setText("产品介绍");
-                mTitle.setVisibility(View.GONE);
-                // 列表控件可见
-                mGridView.setVisibility(View.VISIBLE);
-                ll_pro.setVisibility(View.VISIBLE);
-                // 填充适配器
-                mGridAdapter = new TrainGridAdapter(getBaseContext(), mChildList);
-                // 设置适配器
-                mGridView.setAdapter(mGridAdapter);
+
+
+    /**
+     * 获取某个路径下的文件列表
+     * @param path 文件路径
+     * @return 文件列表 File[] files
+     */
+    public static File[] getFileList(String path) {
+        File file = new File(path);
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            for(int i=0;i<files.length;i++){
+                String fileName= files[i].getName();
+                if(fileName.equals("Thumbs.db")){
+                    files[i].delete();
+                }
             }
+            File[] filess = file.listFiles();
+            if (filess != null) {
+                return filess;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
         }
-    };
+    }
 }
