@@ -123,7 +123,7 @@ public class ProVideoAndPictureActivity extends BaseActivity {
      * 本地图片
      */
     ArrayList<String> photos,twophotos,threephotos,fourphotos,fivephotos;
-
+    File[] videoFilesConunt,baseFile;
 
     /**
      * 本地图片
@@ -152,20 +152,31 @@ public class ProVideoAndPictureActivity extends BaseActivity {
         ((ActivityManager)getSystemService(Context.ACTIVITY_SERVICE)).getLargeMemoryClass();
         ll_pro=findViewById(R.id.ll_pro);
         Intent intent = getIntent();
-        position=(Integer.parseInt(intent.getStringExtra("position"))+1)+"";
-        proStr="/pro"+position;
+        position=(Integer.parseInt(intent.getStringExtra("position")))+"";
 
         projectPath = FileUtils.DirPathForProjectPicVideo();
-        P1= projectPath+proStr+"/P1";
-        P2= projectPath+proStr+"/P2";
-        P3= projectPath+proStr+"/P3";
-        P4= projectPath+proStr+"/P4";
-        P5= projectPath+proStr+"/P5";
+        videoFilesConunt= FileUtils.getFileList(projectPath);
+        if((Integer.parseInt(position)+1)>videoFilesConunt.length){
+            Toast.makeText(this,"请复制相关的图片和视频",Toast.LENGTH_LONG).show();
+            return;
+        }
+        baseFile = FileUtils.getFileList(videoFilesConunt[Integer.parseInt(position)].getPath());
 
 
-        // 初始化View
-        initView();
-        // 初始化数据
+
+
+
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // 初始化View
+                initView();
+                // 初始化数据
+
+            }
+        });
+
 
 
     }
@@ -178,69 +189,85 @@ public class ProVideoAndPictureActivity extends BaseActivity {
         mViewPager2= findViewById(R.id.viewPager2);
         mViewPager3= findViewById(R.id.viewPager3);
 
-        customerVideoView = findViewById(R.id.mainVideoView);
-        PlayVideo(P1);
-
-
-        resetViewPager(mViewPager);
-
-        photos = new ArrayList<String>();
-        title=new ArrayList<String>();
-        selectPicture(P2,1);
-        mViewPager.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
-        mViewPager.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位置
-        mViewPager.setImageLoader(new MyImageLoader());
-        mViewPager.setDelayTime(5000);//设置轮播时间
-        mViewPager.setImages(photos);//设置图片源PageTransformer
-        mViewPager.setBannerTitles(title);//设置标题源
-        mViewPager.start();
+        if(baseFile.length>=1){
+            customerVideoView = findViewById(R.id.mainVideoView);
+            PlayVideo(baseFile[0].getPath());
+            P1=baseFile[0].getPath();
+        }
 
 
 
-        //第二个view Banner
-        resetViewPager(mViewPager1);
-
-        twophotos = new ArrayList<String>();
-        twotitle=new ArrayList<String>();
-        selectPicture(P3,2);
-        mViewPager1.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
-        mViewPager1.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位
-        mViewPager1.setImageLoader(new MyImageLoader());
-        mViewPager1.setDelayTime(5000);//设置轮播时间
-        mViewPager1.setImages(twophotos);//设置图片源
-        mViewPager1.setBannerTitles(twotitle);//设置标题源
-        mViewPager1.start();
 
 
+        if(baseFile.length>=2){
+            resetViewPager(mViewPager);
+            photos = new ArrayList<String>();
+            title=new ArrayList<String>();
+            selectPicture(baseFile[1].getPath(),1);
+            mViewPager.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
+            mViewPager.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位置
+            mViewPager.setImageLoader(new MyImageLoader());
+            mViewPager.setDelayTime(5000);//设置轮播时间
+            mViewPager.setImages(photos);//设置图片源PageTransformer
+            mViewPager.setBannerTitles(title);//设置标题源
+            mViewPager.start();
+        }
 
-        //第三个view Banner
-        resetViewPager(mViewPager2);
 
-        threephotos = new ArrayList<String>();
-        threetitle=new ArrayList<String>();
-        selectPicture(P4,3);
-        mViewPager2.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
-        mViewPager2.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位
-        mViewPager2.setImageLoader(new MyImageLoader());
-        mViewPager2.setDelayTime(5000);//设置轮播时间
-        mViewPager2.setImages(threephotos);//设置图片源
-        mViewPager2.setBannerTitles(threetitle);//设置标题源
-        mViewPager2.start();
+        if(baseFile.length>=3){
+            //第二个view Banner
+            resetViewPager(mViewPager1);
+
+            twophotos = new ArrayList<String>();
+            twotitle=new ArrayList<String>();
+            selectPicture(baseFile[2].getPath(),2);
+            mViewPager1.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
+            mViewPager1.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位
+            mViewPager1.setImageLoader(new MyImageLoader());
+            mViewPager1.setDelayTime(5000);//设置轮播时间
+            mViewPager1.setImages(twophotos);//设置图片源
+            mViewPager1.setBannerTitles(twotitle);//设置标题源
+            mViewPager1.start();
+        }
 
 
-        //第四个view Banner
-        resetViewPager(mViewPager3);
 
-        fourphotos = new ArrayList<String>();
-        fourtitle=new ArrayList<String>();
-        selectPicture(P5,4);
-        mViewPager3.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
-        mViewPager3.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位
-        mViewPager3.setImageLoader(new MyImageLoader());
-        mViewPager3.setDelayTime(5000);//设置轮播时间
-        mViewPager3.setImages(fourphotos);//设置图片源
-        mViewPager3.setBannerTitles(fourtitle);//设置标题源
-        mViewPager3.start();
+
+
+        if(baseFile.length>=4){
+            //第三个view Banner
+            resetViewPager(mViewPager2);
+
+            threephotos = new ArrayList<String>();
+            threetitle=new ArrayList<String>();
+            selectPicture(baseFile[3].getPath(),3);
+            mViewPager2.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
+            mViewPager2.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位
+            mViewPager2.setImageLoader(new MyImageLoader());
+            mViewPager2.setDelayTime(5000);//设置轮播时间
+            mViewPager2.setImages(threephotos);//设置图片源
+            mViewPager2.setBannerTitles(threetitle);//设置标题源
+            mViewPager2.start();
+        }
+
+
+
+        if(baseFile.length>=5){            //第四个view Banner
+            resetViewPager(mViewPager3);
+
+            fourphotos = new ArrayList<String>();
+            fourtitle=new ArrayList<String>();
+            selectPicture(baseFile[4].getPath(),4);
+            mViewPager3.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
+            mViewPager3.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位
+            mViewPager3.setImageLoader(new MyImageLoader());
+            mViewPager3.setDelayTime(5000);//设置轮播时间
+            mViewPager3.setImages(fourphotos);//设置图片源
+            mViewPager3.setBannerTitles(fourtitle);//设置标题源
+            mViewPager3.start();
+        }
+
+
 
 
         initData();
@@ -280,17 +307,6 @@ public class ProVideoAndPictureActivity extends BaseActivity {
         // 滑动切换视频
         final File[] videoFiles = FileUtils.getFileList(P1);
 
-//        list=new ArrayList<>();
-//
-//
-//        for(int i=0;i<videoFiles.length;i++){
-//            list.add(videoFiles[i].getPath());
-//        }
-//        banner.setDataList(list);
-//        banner.setImgDelyed(5000);
-//        banner.startBanner();
-//        banner.startAutoPlay();
-//        resetViewPager(banner);
 
         mGestureDetector = new GestureDetector(this, new GestureDetector.OnGestureListener() {
             @Override
@@ -424,6 +440,8 @@ public class ProVideoAndPictureActivity extends BaseActivity {
      * @param path 视频路径
      */
     private void PlayVideo(String path) {
+        try {
+
         final File[] videoFiles = FileUtils.getFileList(path);
         if (videoFiles != null && videoFiles.length !=0) {
             index = 0;
@@ -437,38 +455,41 @@ public class ProVideoAndPictureActivity extends BaseActivity {
             }
             customerVideoView.start();
         } else {
-            ShowToastUtils.ShowToast(this, "当前文件夹下没有视频文件", Toast.LENGTH_SHORT);
+            //ShowToastUtils.ShowToast(this, "当前文件夹下没有视频文件", Toast.LENGTH_SHORT);
+        }
+            customerVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    index++;
+                    if (index >= videoFiles.length) {
+                        index = 0;
+                        File file = videoFiles[index];
+                        String externName = file.getName();
+                        Log.d("file", externName);
+                        resetVideoView(file.getPath());
+                        customerVideoView.setVideoURI(Uri.parse(file.getPath()));
+                        customerVideoView.start();
+                    } else {
+                        File file = videoFiles[index];
+                        String externName = file.getName();
+                        Log.d("file", externName);
+                        resetVideoView(file.getPath());
+                        customerVideoView.setVideoURI(Uri.parse(file.getPath()));
+                        customerVideoView.start();
+                    }
+                }
+            });
+
+            customerVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    mp.start();
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
-        customerVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                index++;
-                if (index >= videoFiles.length) {
-                    index = 0;
-                    File file = videoFiles[index];
-                    String externName = file.getName();
-                    Log.d("file", externName);
-                    resetVideoView(file.getPath());
-                    customerVideoView.setVideoURI(Uri.parse(file.getPath()));
-                    customerVideoView.start();
-                } else {
-                    File file = videoFiles[index];
-                    String externName = file.getName();
-                    Log.d("file", externName);
-                    resetVideoView(file.getPath());
-                    customerVideoView.setVideoURI(Uri.parse(file.getPath()));
-                    customerVideoView.start();
-                }
-            }
-        });
-
-        customerVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.start();
-            }
-        });
     }
 
     /**
@@ -484,7 +505,7 @@ public class ProVideoAndPictureActivity extends BaseActivity {
                     title.add(" ");
                 }
             } else {
-                ShowToastUtils.ShowToast(ProVideoAndPictureActivity.this, "当前文件夹下没有图片文件", Toast.LENGTH_SHORT);
+               // ShowToastUtils.ShowToast(ProVideoAndPictureActivity.this, "当前文件夹下没有图片文件", Toast.LENGTH_SHORT);
             }
         }
 
@@ -496,7 +517,7 @@ public class ProVideoAndPictureActivity extends BaseActivity {
                     twotitle.add(" ");
                 }
             } else {
-                ShowToastUtils.ShowToast(ProVideoAndPictureActivity.this, "当前文件夹下没有图片文件", Toast.LENGTH_SHORT);
+               // ShowToastUtils.ShowToast(ProVideoAndPictureActivity.this, "当前文件夹下没有图片文件", Toast.LENGTH_SHORT);
             }
         }
         if(pos==3){
@@ -507,7 +528,7 @@ public class ProVideoAndPictureActivity extends BaseActivity {
                     threetitle.add(" ");
                 }
             } else {
-                ShowToastUtils.ShowToast(ProVideoAndPictureActivity.this, "当前文件夹下没有图片文件", Toast.LENGTH_SHORT);
+               // ShowToastUtils.ShowToast(ProVideoAndPictureActivity.this, "当前文件夹下没有图片文件", Toast.LENGTH_SHORT);
             }
         }
 
@@ -519,7 +540,7 @@ public class ProVideoAndPictureActivity extends BaseActivity {
                     fourtitle.add(" ");
                 }
             } else {
-                ShowToastUtils.ShowToast(ProVideoAndPictureActivity.this, "当前文件夹下没有图片文件", Toast.LENGTH_SHORT);
+               // ShowToastUtils.ShowToast(ProVideoAndPictureActivity.this, "当前文件夹下没有图片文件", Toast.LENGTH_SHORT);
             }
         }
 
@@ -551,6 +572,30 @@ public class ProVideoAndPictureActivity extends BaseActivity {
      * 根据视频的宽度和高度重设VideoView的大小
      * @param path
      */
+//    private void resetVideoView(String path) {
+//        // 获取视频的宽度高度
+//        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+//        retriever.setDataSource(path);
+//        final String height = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);
+//        final String width = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);
+//        Log.d("Video height & width" , "height = " + height + " width =" + width);
+//        // 重设VideoView的大小
+//        customerVideoView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//            @Override
+//            public boolean onPreDraw() {
+//                customerVideoView.getViewTreeObserver().removeOnPreDrawListener(this);
+//                ViewGroup.LayoutParams videoLayoutParams = customerVideoView.getLayoutParams();
+//                videoLayoutParams.width = screenWidth;
+//                videoLayoutParams.height = screenHieght;
+//                customerVideoView.setLayoutParams(videoLayoutParams);
+//                return true;
+//            }
+//        });
+//    }
+    /**
+     * 根据视频的宽度和高度重设VideoView的大小
+     * @param path
+     */
     private void resetVideoView(String path) {
         // 获取视频的宽度高度
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
@@ -564,14 +609,13 @@ public class ProVideoAndPictureActivity extends BaseActivity {
             public boolean onPreDraw() {
                 customerVideoView.getViewTreeObserver().removeOnPreDrawListener(this);
                 ViewGroup.LayoutParams videoLayoutParams = customerVideoView.getLayoutParams();
-                videoLayoutParams.width = screenWidth;
-                videoLayoutParams.height = screenHieght;
+                videoLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                videoLayoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
                 customerVideoView.setLayoutParams(videoLayoutParams);
                 return true;
             }
         });
     }
-
 
 
 

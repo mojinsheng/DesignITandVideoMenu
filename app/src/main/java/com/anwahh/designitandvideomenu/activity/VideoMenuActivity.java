@@ -3,11 +3,13 @@ package com.anwahh.designitandvideomenu.activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -18,6 +20,7 @@ import com.anwahh.designitandvideomenu.R;
 import com.anwahh.designitandvideomenu.ScannerAnsyTask;
 import com.anwahh.designitandvideomenu.adapter.GridAdapter;
 import com.anwahh.designitandvideomenu.bean.MediaBean;
+import com.anwahh.designitandvideomenu.commonUtils.BitmapUtils;
 import com.anwahh.designitandvideomenu.commonUtils.FileUtils;
 import com.anwahh.designitandvideomenu.view.GridViewWithHeaderAndFooter;
 
@@ -58,7 +61,7 @@ public class VideoMenuActivity extends BaseActivity {
     /**
      * 打印Log所需的TAG
      */
-
+    private ImageView img_top,img_botton;
     /**
      * 产品布局
      */
@@ -97,6 +100,25 @@ public class VideoMenuActivity extends BaseActivity {
         mGridView =(GridViewWithHeaderAndFooter) findViewById(R.id.mediaGridView);
         View v_top = this.getLayoutInflater().inflate(R.layout.activity_video_menu_top,null);
         View v_bottom = this.getLayoutInflater().inflate(R.layout.activity_video_menu_bottom,null);
+
+
+
+
+        File[] projectSet=getFileList(FileUtils.projectSet());
+        img_top=v_top.findViewById(R.id.img_top);
+        img_botton=v_bottom.findViewById(R.id.img_botton);
+        Bitmap bitmap = BitmapUtils.getSmallBitmap(projectSet[0].getPath(),
+                this.getResources().getDisplayMetrics().heightPixels,
+                this.getResources().getDisplayMetrics().widthPixels);
+        img_top.setImageBitmap(bitmap);
+
+
+        Bitmap bitmap1 = BitmapUtils.getSmallBitmap(projectSet[1].getPath(),
+                this.getResources().getDisplayMetrics().heightPixels,
+                this.getResources().getDisplayMetrics().widthPixels);
+        img_botton.setImageBitmap(bitmap1);
+
+
 
         mGridView.addHeaderView(v_top);
         mGridView.addFooterView(v_bottom);

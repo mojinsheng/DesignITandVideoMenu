@@ -118,7 +118,8 @@ public class TrainVideoAndPictureActivity extends BaseActivity {
 
 
     private String pro;
-
+    private File[] trainCount;
+    private File[] baseCount;
 
     /**
      * 视频播放器
@@ -140,8 +141,19 @@ public class TrainVideoAndPictureActivity extends BaseActivity {
         String position = getIntent().getStringExtra("position");
         pro = FileUtils.DirPathForTrainVideo();
 
-        pro = pro + "/pro" + (Integer.parseInt(position) + 1)+"/P1";
 
+         trainCount = FileUtils.getFileList(FileUtils.DirPathForTrainVideo());
+
+
+         if((Integer.parseInt(position)+1)>trainCount.length){
+             Toast.makeText(this,"请复制相关的图片和视频",Toast.LENGTH_LONG).show();
+             return;
+         }
+
+
+        baseCount = FileUtils.getFileList(trainCount[Integer.parseInt(position)].getPath());
+
+        pro=baseCount[0].getPath();
         // 初始化View
         initView();
         // 初始化数据
@@ -229,8 +241,6 @@ public class TrainVideoAndPictureActivity extends BaseActivity {
     @SuppressLint("ResourceAsColor")
     private void initData() {
         // 接收上个页面传递的数据信息
-        Intent intent = getIntent();
-        String position = intent.getStringExtra("position");
 
 
         // 下拉刷新控件样式相关

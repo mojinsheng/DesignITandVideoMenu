@@ -53,9 +53,9 @@ public class FileUtils {
      */
     public static String DirPathForTrainPic() {
         if (isSDCardState()) {
-            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/Training";
+            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/Train";
         } else {
-            return Environment.getExternalStorageDirectory().getAbsolutePath() + "/Training";
+            return Environment.getExternalStorageDirectory().getAbsolutePath() + "/Train";
         }
     }
 
@@ -141,9 +141,33 @@ public class FileUtils {
      */
     public static String DirPathForCustomerShow() {
         if (isSDCardState()) {
-            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/CustomerShow";
+            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/Live";
         } else {
-            return Environment.getExternalStorageDirectory().getAbsolutePath() + "/CustomerShow";
+            return Environment.getExternalStorageDirectory().getAbsolutePath() + "/Live";
+        }
+    }
+
+    /**
+     * 指定产品头尾的路径
+     * @return
+     */
+    public static String projectSet() {
+        if (isSDCardState()) {
+            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/projectSet";
+        } else {
+            return Environment.getExternalStorageDirectory().getAbsolutePath() + "/projectSet";
+        }
+    }
+
+    /**
+     * 指定培训头尾的路径
+     * @return
+     */
+    public static String trainSet() {
+        if (isSDCardState()) {
+            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/trainSet";
+        } else {
+            return Environment.getExternalStorageDirectory().getAbsolutePath() + "/trainSet";
         }
     }
 

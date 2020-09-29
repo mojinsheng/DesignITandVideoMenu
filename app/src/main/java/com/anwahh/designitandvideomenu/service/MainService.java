@@ -262,7 +262,7 @@ public class MainService extends Service {
             }
         });
 
-        // 买家秀
+        // 直播
         iv_customershow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
