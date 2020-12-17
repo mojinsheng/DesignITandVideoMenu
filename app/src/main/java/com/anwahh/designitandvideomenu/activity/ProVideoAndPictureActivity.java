@@ -208,10 +208,10 @@ public class ProVideoAndPictureActivity extends BaseActivity {
                 return true;
             }
         });
+        photos = new ArrayList<String>();
 
         if(baseFile.length>=2){
             resetViewPager(mViewPager);
-            photos = new ArrayList<String>();
             title=new ArrayList<String>();
             selectPicture(baseFile[1].getPath(),1);
             mViewPager.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
@@ -222,14 +222,14 @@ public class ProVideoAndPictureActivity extends BaseActivity {
             mViewPager.setBannerTitles(title);//设置标题源
             mViewPager.start();
         }
-
+        photos = new ArrayList<String>();
         twophotos = new ArrayList<String>();
         twotitle=new ArrayList<String>();
 
         threephotos = new ArrayList<String>();
         threetitle=new ArrayList<String>();
+
         fourphotos = new ArrayList<String>();
-        fourtitle=new ArrayList<String>();
 
         if(baseFile.length>=3){
             //第二个view Banner
