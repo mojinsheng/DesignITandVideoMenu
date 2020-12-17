@@ -138,6 +138,8 @@ public class ProVideoAndPictureActivity extends BaseActivity {
      */
     private CustomerVideoView customerVideoView;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -194,10 +196,18 @@ public class ProVideoAndPictureActivity extends BaseActivity {
             PlayVideo(baseFile[0].getPath());
             P1=baseFile[0].getPath();
         }
+//        customerVideoView.setOnTouchListener(this);
+//        customerVideoView.setFocusable(true);
+//        customerVideoView.setClickable(true);
+//        customerVideoView.setLongClickable(true);
 
-
-
-
+        customerVideoView.setOnTouchListener(new View.OnTouchListener() {
+            @Override//可以捕获到触摸屏幕发生的Event事件
+            public boolean onTouch(View vew, MotionEvent motionEvent) {
+                mGestureDetector.onTouchEvent(motionEvent);
+                return true;
+            }
+        });
 
         if(baseFile.length>=2){
             resetViewPager(mViewPager);
@@ -213,13 +223,18 @@ public class ProVideoAndPictureActivity extends BaseActivity {
             mViewPager.start();
         }
 
+        twophotos = new ArrayList<String>();
+        twotitle=new ArrayList<String>();
+
+        threephotos = new ArrayList<String>();
+        threetitle=new ArrayList<String>();
+        fourphotos = new ArrayList<String>();
+        fourtitle=new ArrayList<String>();
 
         if(baseFile.length>=3){
             //第二个view Banner
             resetViewPager(mViewPager1);
 
-            twophotos = new ArrayList<String>();
-            twotitle=new ArrayList<String>();
             selectPicture(baseFile[2].getPath(),2);
             mViewPager1.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
             mViewPager1.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位
@@ -238,8 +253,6 @@ public class ProVideoAndPictureActivity extends BaseActivity {
             //第三个view Banner
             resetViewPager(mViewPager2);
 
-            threephotos = new ArrayList<String>();
-            threetitle=new ArrayList<String>();
             selectPicture(baseFile[3].getPath(),3);
             mViewPager2.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
             mViewPager2.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位
@@ -255,8 +268,7 @@ public class ProVideoAndPictureActivity extends BaseActivity {
         if(baseFile.length>=5){            //第四个view Banner
             resetViewPager(mViewPager3);
 
-            fourphotos = new ArrayList<String>();
-            fourtitle=new ArrayList<String>();
+
             selectPicture(baseFile[4].getPath(),4);
             mViewPager3.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
             mViewPager3.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位
@@ -266,10 +278,18 @@ public class ProVideoAndPictureActivity extends BaseActivity {
             mViewPager3.setBannerTitles(fourtitle);//设置标题源
             mViewPager3.start();
         }
-
-
-
-
+        if(photos.size()==0){
+            mViewPager.setVisibility(View.GONE);
+        }
+        if(twophotos.size()==0){
+            mViewPager1.setVisibility(View.GONE);
+        }
+        if(threephotos.size()==0){
+            mViewPager2.setVisibility(View.GONE);
+        }
+        if(fourphotos.size()==0){
+            mViewPager3.setVisibility(View.GONE);
+        }
         initData();
 
     }
@@ -479,7 +499,13 @@ public class ProVideoAndPictureActivity extends BaseActivity {
                     }
                 }
             });
-
+            customerVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                @Override
+                public boolean onError(MediaPlayer mp, int what, int extra) {
+                    customerVideoView.stopPlayback(); //播放异常，则停止播放，防止弹窗使界面阻塞
+                    return true;
+                }
+            });
             customerVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
@@ -630,7 +656,7 @@ public class ProVideoAndPictureActivity extends BaseActivity {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        mGestureDetector.onTouchEvent(ev);
+      //  mGestureDetector.onTouchEvent(ev);
 
         return super.dispatchTouchEvent(ev);
     }

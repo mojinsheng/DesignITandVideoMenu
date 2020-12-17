@@ -435,7 +435,13 @@ public class TrainVideoAndPictureActivity extends BaseActivity {
                 }
             }
         });
-
+        customerVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                customerVideoView.stopPlayback(); //播放异常，则停止播放，防止弹窗使界面阻塞
+                return true;
+            }
+        });
         customerVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {

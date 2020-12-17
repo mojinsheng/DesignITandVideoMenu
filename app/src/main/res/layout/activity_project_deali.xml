@@ -7,8 +7,7 @@
     android:orientation="vertical"
     tools:context=".activity.ProVideoAndPictureActivity">
 
-
-    <ScrollView
+    <com.anwahh.designitandvideomenu.viewModel.CustomScrollview
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -19,11 +18,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/ll_pro"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+
 
 
                 <com.anwahh.designitandvideomenu.viewModel.CustomerVideoView
@@ -33,7 +28,7 @@
                     android:layout_height="wrap_content"
                     />
 
-        </LinearLayout>
+
             <com.youth.banner.Banner
                 android:id="@+id/viewPager"
                 android:layout_width="wrap_content"
@@ -62,7 +57,7 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </com.anwahh.designitandvideomenu.viewModel.CustomScrollview>
 
 
 

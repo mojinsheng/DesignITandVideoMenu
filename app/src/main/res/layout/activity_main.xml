@@ -12,7 +12,6 @@
         android:id="@+id/mSwipeRefreshLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
         <com.anwahh.designitandvideomenu.viewModel.CustomerVideoView
             android:layout_below="@id/mainVideoView"
             android:id="@+id/mainVideoView"

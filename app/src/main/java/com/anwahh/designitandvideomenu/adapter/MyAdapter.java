@@ -47,7 +47,7 @@ public class MyAdapter extends PagerAdapter {
                 context.getResources().getDisplayMetrics().widthPixels);
         ImageView imageView = new ImageView(context);
         imageView.setImageBitmap(bitmap);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         container.addView(imageView);
 
         return imageView;

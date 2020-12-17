@@ -26,6 +26,8 @@ import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
+import android.widget.VideoView;
+
 import com.anwahh.designitandvideomenu.R;
 import com.anwahh.designitandvideomenu.bean.MediaBean;
 
@@ -116,12 +118,14 @@ public class MainActivity extends BaseActivity{
         screenHieght = displayMetrics.heightPixels;
 
         initView();
+        Log.i("mojin","======================="+Environment.getExternalStorageDirectory()
+                .getAbsolutePath());
 
 
         if(!PermissionUtil.requestPermissions_STORAGE(this,1000)){
             return;
         }
-        dirList = getFileFromJson(dirList, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/DataSource.json");
+       // dirList = getFileFromJson(dirList, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/DataSource.json");
 
 
         //检查权限
@@ -176,7 +180,7 @@ public class MainActivity extends BaseActivity{
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(requestCode == 1000) {
-            dirList = getFileFromJson(dirList, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/DataSource.json");
+            //dirList = getFileFromJson(dirList, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/DataSource.json");
 
 
             //检查权限
@@ -375,9 +379,15 @@ public class MainActivity extends BaseActivity{
                 return true;
             }
         });
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // 播放视频
+                PlayVideo(FileUtils.DirPathForMainVideo());
+            }
+        });
 
-        // 播放视频
-        PlayVideo(FileUtils.DirPathForMainVideo());
+
 
 
     }
@@ -433,9 +443,9 @@ public class MainActivity extends BaseActivity{
             index = 0;
             File file = videoFiles[index];
             String externName = file.getName();
-            Log.d("file", externName);
+            Log.d("file", "========11111111111111111111111========="+Uri.parse(file.getPath()));
             resetVideoView(file.getPath());
-            customerVideoView.setVideoURI(Uri.parse(file.getPath()));
+            customerVideoView.setVideoPath(file.getPath());
             if (customerVideoView.getVisibility() == View.GONE) {
                 customerVideoView.setVisibility(View.VISIBLE);
             }
@@ -466,7 +476,16 @@ public class MainActivity extends BaseActivity{
                 }
             }
         });
+        customerVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                 Log.d("MainAActivity", "==================================OnError - Error code: " + what + " Extra code: " + extra);
 
+                customerVideoView.stopPlayback(); //播放异常，则停止播放，防止弹窗使界面阻塞
+
+                return true;
+            }
+        });
         customerVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
@@ -492,8 +511,8 @@ public class MainActivity extends BaseActivity{
             public boolean onPreDraw() {
                 customerVideoView.getViewTreeObserver().removeOnPreDrawListener(this);
                 ViewGroup.LayoutParams videoLayoutParams = customerVideoView.getLayoutParams();
-                videoLayoutParams.width = Integer.parseInt(width);
-                videoLayoutParams.height = Integer.parseInt(height);
+                videoLayoutParams.width = Integer.parseInt(width)/2;
+                videoLayoutParams.height = Integer.parseInt(height)/2;
                 customerVideoView.setLayoutParams(videoLayoutParams);
                 return true;
             }

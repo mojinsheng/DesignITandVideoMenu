@@ -28,7 +28,8 @@ public class FileUtils {
      */
     public static String DirPathForMainVideo() {
         if (isSDCardState()) {
-            return Environment.getExternalStoragePublicDirectory(pictrue1).getAbsolutePath() + "/mainVideo";
+            return Environment.getExternalStorageDirectory()
+                    .getAbsolutePath()+ File.separator +"Pictures"+ "/mainVideo";
         } else {
             return Environment.getExternalStorageDirectory().getAbsolutePath() + "/mainVideo";
         }

@@ -106,7 +106,7 @@ public class VideoMenuActivity extends BaseActivity {
 
         File[] projectSet=getFileList(FileUtils.projectSet());
         img_top=v_top.findViewById(R.id.img_top);
-        img_botton=v_bottom.findViewById(R.id.img_botton);
+        img_botton=v_bottom.findViewById(R.id.img_top);
         Bitmap bitmap = BitmapUtils.getSmallBitmap(projectSet[0].getPath(),
                 this.getResources().getDisplayMetrics().heightPixels,
                 this.getResources().getDisplayMetrics().widthPixels);
@@ -152,12 +152,19 @@ public class VideoMenuActivity extends BaseActivity {
         mTitle.setVisibility(View.GONE);
         // 列表控件可见
         mGridView.setVisibility(View.VISIBLE);
+
+
+
+
+
         ll_pro.setVisibility(View.VISIBLE);
         // 填充适配器
         mGridAdapter = new GridAdapter(getBaseContext(), projectPicFiles);
         // 设置适配器
         mGridView.setAdapter(mGridAdapter);
-
+//        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) mGridView.getLayoutParams(); // 取控件mGrid当前的布局参数
+//        linearParams.height = 100;// 当控件的高强制设成75象素
+//        mGridView.setLayoutParams(linearParams); // 使设置好的布局参数应用到控件mGrid2
 
     }
     /**

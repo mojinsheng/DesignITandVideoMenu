@@ -97,7 +97,7 @@ public class TrainMenuActivity extends BaseActivity {
 
         File[] projectSet=getFileList(FileUtils.trainSet());
         img_top=v_top.findViewById(R.id.img_top);
-        img_botton=v_bottom.findViewById(R.id.img_botton);
+        img_botton=v_bottom.findViewById(R.id.img_top);
         Bitmap bitmap = BitmapUtils.getSmallBitmap(projectSet[0].getPath(),
                 this.getResources().getDisplayMetrics().heightPixels,
                 this.getResources().getDisplayMetrics().widthPixels);
